@@ -1,4 +1,253 @@
 .article_box {
   font-size: 50px;
+  height: 620px;
+  overflow: hidden;
+}
+.start {
+  position: absolute;
+  left: 288px;
+  top: 815px;
+  width: 144px;
+  height: 36px;
+  background: url(../img/icons.png) no-repeat;
+  background-position: 0 0;
+}
+.start.animate {
+  -webkit-animation: breath linear 2s infinite;
+          animation: breath linear 2s infinite;
+}
+@-webkit-keyframes breath {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes breath {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.cover {
+  background: url(../img/cover.jpg) no-repeat;
+}
+.topbar {
+  height: 128px;
+}
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: #64584c;
+  margin-bottom: 60px;
+}
+.article {
+  font-size: 24px;
+  color: #64584c;
+  line-height: 40px;
+}
+#detail {
+  padding: 0 40px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background: url(../img/p3.png) repeat;
+}
+.operation {
+  color: #64584c;
+  font-family: 微软雅黑;
+  font-size: 24px;
+  height: 260px;
+  border-top: 1px solid #b3b3b3;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #f5f0ec;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0 40px;
+}
+.p_info {
+  margin-top: 10px;
+  font-size: 20px;
+}
+.point_box {
+  margin-top: 42px;
+}
+#point,
+#comment {
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  border: 2px solid #b5b5b5;
+  background: #fff;
+  font-size: 24px;
+  border-radius: 6px;
+  vertical-align: middle;
+  text-align: center;
+  color: #e55f3a;
+}
+#point.active,
+#comment.active {
+  border-color: #e55f3a;
+}
+.comment {
+  margin-top: 24px;
+}
+.comment_box {
+  padding: 50px 35px;
+  display: none;
+  width: 560px;
+  height: 300px;
+  border-radius: 6px;
+  border: 2px solid #b5b5b5;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 480px;
+  background: #fff;
+  margin: auto;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.comment_box div {
+  display: inline-block;
+  padding: 0 18px;
+  border: 1px solid #b5b5b5;
+  font-size: 28px;
+  color: #808080;
+  font-family: 微软雅黑;
+  line-height: 40px;
+  border-radius: 5px;
+  margin: 15px;
+}
+.comment_box div.active {
+  color: #e55f3a;
+  border-color: #e55f3a;
+}
+.comment_box .naodong {
+  margin-left: 30px;
+}
+.submit {
+  position: absolute;
+  top: 57px;
+  margin-right: 44px;
+  width: 168px;
+  height: 98px;
+  background: url(../img/icons.png) no-repeat;
+  background-position: 0 -36px;
+  right: 0;
+}
+.submit.active {
+  background-position: 0 -142px;
+}
+.pointer_box {
+  display: none;
+  width: 560px;
+  height: 300px;
+  border-radius: 6px;
+  border: 2px solid #b5b5b5;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 480px;
+  background: #fff;
+  margin: auto;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+#defen {
+  font-family: Helvetica;
+  font-size: 76px;
+}
+.defen {
+  font-family: 微软雅黑;
+  font-size: 30px;
+  color: #e55f3a;
+  text-align: center;
+  margin-top: 40px;
+}
+.line_wrapper {
+  padding: 30px;
+  position: absolute;
+  bottom: 0;
+  font-size: 24px;
+  color: #898989;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.min {
+  float: left;
+  line-height: 40px;
+  margin-right: 10px;
+}
+.max {
+  float: right;
+  line-height: 40px;
+}
+.line_box {
+  display: inline-block;
+  width: 390px;
+  height: 40px;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+}
+.line {
+  width: 100%;
+  background: #d2d2d2;
+  height: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.circles {
+  display: inline-block;
+  width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 10;
+  -webkit-transform: translateX(-90%);
+      -ms-transform: translateX(-90%);
+          transform: translateX(-90%);
+}
+.c_line {
+  background: #e55f3a;
+  width: 350px;
+  height: 5px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background: #e55f3a;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-clip: content-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid #e55f3a;
 }

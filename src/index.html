@@ -46,18 +46,20 @@
 	</div>
 	<script type="text/javascript">
 		  // 自适应屏幕配置
+		var pas,swiper;
 		function initView() {
-			window.onload = function(){
+			// window.onload = function(){
 
 
-		    var pas = new pageUtil(".main").response();
-		    // var swiper = new Swiper('.swiper-container', {     
-		    //     // direction: 'vertical',
-		    //     onSlideChangeEnd: function(swiper){
-			   //   console.log(swiper.activeIndex);
-			   //  }
-		    // });
-		    }
+		    pas = new pageUtil(".main");
+		    pas.response();
+		    swiper = new Swiper('.swiper-container', {     
+		        // direction: 'vertical',
+		        effect:"fade",
+		        onSlideChangeEnd: function(swiper){
+			     console.log(swiper.activeIndex);
+			    }
+		    });
 	    }
 		  //懒加载
 		var loader = new resLoader({
@@ -77,6 +79,7 @@
 		    }
 		});
 		loader.start();
+		// initView();
 
 		function pageUtil(selector){
 			this.ele = document.querySelectorAll(selector)[0];
@@ -84,7 +87,7 @@
 			return this;
 		}
 		pageUtil.prototype.response = function(selector){
-	        this.ele.style.cssText = "-webkit-transform-origin: 0 0 0px; -webkit-transform: scale("+this.scaleNum+");position: absolute;width:640px;height:1136px";
+	        this.ele.style.cssText = "-webkit-transform-origin: 0 0 0px; -webkit-transform: scale("+this.scaleNum+");position: absolute;width:640px;height:1008px";
 	        return this;
 		}
 		pageUtil.prototype.rotate = function(){
@@ -101,26 +104,75 @@
 		<div class="swiper-container">
 		  	<div class="swiper-wrapper">
 			   
-			    <div class="swiper-slide" data-index="0" > 
+			    <div class="swiper-slide cover swiper-no-swiping" data-index="0" > 
+			    	<div class="start animate"></div>
+			    </div>
+
+			    <div class="swiper-slide" id="papers" data-index="1" > 
+			    	<img class="pic" src="../dist/img/papers.jpg"  width="100%" alt="">
+			    </div>
+
+			    <div class="swiper-slide swiper-no-swiping " id="detail" data-index="2" >
+					<div class="topbar">
+						<p class="info"></p>
+						<div class="time_box">
+							<span class="time"></span>
+						</div>
+					</div>
+
 			    	<div class="article_box">
 						<div class="wrapper">
-			    		<h3>无花果零用</h3>
-			    		<span>作者</span>
-						
-
-						<p>好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间
-						好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间
-					好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间</p>
+				    		<h3 class="title">无花果零用</h3>
+							
+							<p class="article">好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间
+									好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间
+								好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间好大一塔顶发大水普屏 频道直间
+							</p>
 
 						</div>
 			    	</div>
+
+			    	<div class="operation">
+			    		<div class="point_box">
+			    			<div class="pointer">我已阅完,我给 <span id="point"></span> 分。</div>
+			    			<p class="p_info">（最高打60分，最低打0分）</p>
+			    		</div>
+			    		<div class="comment">我认为这篇文章 <span id="comment"></span> 。</div>
+			    		<div class="submit"></div>
+
+			    	</div>
+
+			    	<div class="pointer_box">
+			    		<div class="defen"><span id="defen">30</span>分</div>
+			    		<div class="line_wrapper">
+
+			    			<div class="min">0分</div>
+			    			
+			    			<div class="line_box">
+			    				<div class="line"></div>
+			    				<div class="circles">
+			    					<div class="c_line"></div>
+			    					<div class="circle"></div>
+			    				</div>
+			    			</div>
+			    			<div class="max">60分</div>
+			    		</div>
+			    	</div>
+
+
+			    	<div class="comment_box">
+			    		<div class="zhenzhi">最真挚</div>
+			    		<div class="wenyi">最文艺</div>
+			    		<div class="qinhuai">最有情怀</div>
+			    		<div class="jiandi">最有见地</div>
+			    		<div class="naodong">最脑洞大开</div>
+			    		<div class="xili">最犀利</div>
+			    		<div class="bagu">最八股</div>
+			    		<div class="tigao">有待提高</div>
+			    	</div>
 			    </div>
-			     <div class="swiper-slide" data-index="1" > 
-			    	<img class="pic" src="../dist/img/star2.png"  width="100%" alt="">
-			    </div>
-			    <div class="swiper-slide" data-index="2" > 
-			    	<img class="pic" src="../dist/img/star2.png"  width="100%" alt="">
-			    </div>
+
+			   
 
 			    <div class="swiper-slide" data-index="3" > 
 			    	<img class="pic" src="../dist/img/star2.png"  width="100%" alt="">
@@ -170,11 +222,11 @@
         </div>
     </script>
 
-    <script type="text/javascript" src="../dist/lib/iscroll.js"></script>
+    <script type="text/javascript" src="../dist/lib/yscroll.js"></script>
 
 	<script type="text/javascript" src="http://news.sohu.com/upload/yursile/dushue/lib/artTemplate/artTemplate.js"></script>
 	<script type="text/javascript" src="../dist/js/data.min.js"></script>
-	<script type="text/javascript" src="../dist/js/main.min.js"></script>
+	<script type="text/javascript" src="../src/js/main.js"></script>
 	
 	<script type="text/javascript">
 		(function(){

@@ -56,10 +56,7 @@ module.exports = function(grunt){
 
         autoprefixer : {
             options:{
-                // paths: 'src/less',
-                  browsers: ['last 2 versions', 'ie 8', 'ie 9'],
-
-                relativeUrls: true
+                  browsers: ['last 8 versions', 'ie 8', 'ie 9'],
             },
             dist : {
                 files : [
