@@ -1,76 +1,86 @@
 
+var pointers = [];
+	var pointer = {};
+	var submited = false;
+	var timer;
+	var totalTime = 40;
 window.onload = function(){
 	
-	var pointers = [];
-	var pointer = {
-		name:"",
-		num:0
-	}
+	
 
 
-	function initDetail(index){
-	    var singleData = dongjian[index-1];
-	    var html = template('detailTPL', singleData);
-	    // document.getElementsByClassName('Response')[0].innerHTML = html;
-	    $(".detailContainer").html(html);
-	    $(".detailContainer").show();
-	}
+	
 
 	$(".start").on("click",function(){
 		swiper.slideNext();
 	})
 
-	$("#papers").on("click",function(){
-		swiper.slideNext();
-	});
 
 
 	$("#point").on("click",function(e){
 		e.stopPropagation()
 		e.preventDefault();
 
+		if($(".comment_box").css("display")=="block"){
+			$("#detail").trigger("touchstart");
+		}
+
 		$(this).addClass("active");
 		$(".pointer_box").show();
 
-		$("#detail").one("click",function(){
+		$("#detail,.wrapper").one("touchstart",function(){
+
 			var num = $("#defen").html()
-			pointer.name = "a",
 			pointer.num = num;
-			// pointers.push(pointer);
+			
+			if(typeof pointer.comment!="undefined" &&pointer.comment!=null && !submited){
+				$(".submit").addClass("active");
+				submited = true;
+			}
 			$(".pointer_box").hide();
 			$("#point").html(num);
 		})
 	})
 
-	$("#comment").on("click",function(e){
+	$("#comment").on("touchstart",function(e){
 		e.stopPropagation()
 		e.preventDefault();
+		if($(".pointer_box").css("display")=="block"){
+			$("#detail").trigger("touchstart");
+		}
 
 		$(this).addClass("active");
 		$(".comment_box").show();
 
-		$("#detail").one("click",function(){
-			var comment = $(".comment_box div.active").html();
-			pointer.name = "a",
-			pointer.comment = comment;
-			// pointers.push(pointer);
+		$("#detail,.wrapper").one("touchstart",function(){
+
+
+			if(typeof pointer.num!="undefined" && comment!=null && !submited){
+				$(".submit").addClass("active");
+				submited = true;
+			}
 			$(".comment_box").hide();
-			$("#comment").html(comment);
+			
 		})
 	})
 
-	$(".comment_box").on("click",function(e){
+	$(".comment_box").on("touchstart",function(e){
 		e.stopPropagation();
 		e.preventDefault();
 		$(this).find(".active").removeClass("active");
 		$(e.target).addClass("active");
+		var comment = $(".comment_box div.active").html();
+			var commentIndex = $(".comment_box div.active").data("index");
+			pointer.comment = comment;
+			pointer.commentIndex = commentIndex;
+			$("#comment").html(comment);
 
 	})
 
 
 		
 	var totalPoint = 60;
-	$(".pointer_box").on("click",function(e){
+	$(".pointer_box").on("touchstart",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 	})
@@ -87,14 +97,149 @@ window.onload = function(){
 	})
 
 
+	/**
+	 * submit
+	 */
+	
+	$(".submit").on("click",function(){
+		if(!submited){
+			return ;
+		}
+
+		pointers.push(pointer);
+		if(timer) clearInterval(timer);
+		timer = null;
+		$(".stu_grade").html(pointer.num+"分");
+		$(".stu_comment").addClass("comment"+pointer.commentIndex);
+		$(".stu_name").html(pointer.author);
+		$(".stu_relation").html("("+pointer.relation+")");
+		$(".timeout_box").hide();
+		swiper.slideNext();
+		handleShare();
+	})
+
+	/**
+	 * cover name
+	 */
+	
+	$(".name_cover").on("click",function(){
+		$(this).addClass("fadeOut animated");
+	})
+
+
+	/**
+	 * select paper
+	 */
+
+	 $("#papers").delegate(".city div","click",function(e){
+	 	if($(this).hasClass("readed"))return;
+	 	var index = parseInt($(this).data("index"));
+	 	swiper.slideNext();
+	 	pointer.index = index;
+
+	 	openPaper(index);
+	 })
+
+	 function openPaper(index){
+	    var singleData = papers[index];
+	    var html = template('detailTPL', singleData);
+	    pointer.author = singleData.author;
+	    pointer.relation = singleData.relation;
+	    pointer.city = singleData.city;
+	    $(".article_box").html(html);
+	   	setTimeout(function(){
+			window.myScroll = new IScroll('.article_box',{
+				scrollbars: "custom"
+			});
+		},300);
+
+		$(".prompt").show();
+		pointer.name = singleData.author;
+		
+	    
+	   	// runTime();
+	    
+	}
+
+	function runTime(){
+		
+		timer = setInterval(function(){
+			if(totalTime>0){
+				if(totalTime<11){
+					$("#timer").html("0"+(--totalTime))
+				}else{
+					$("#timer").html(--totalTime)
+				}
+			}else{
+				clearInterval(timer);
+				timer = null;
+				timeout();
+			}
+		},1000);
+	}
+
+
+	function timeout(){
+		$(".timeout_box").show();
+	}
+
+	$(".timeout").on("click",function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		$(".timeout_box").hide();
+	});
 
 
 
+	$(".p_go").on("click",function(){
+		$(".prompt").hide();
+		runTime();
+	});
 
-	// var myScroll;
-	setTimeout(function(){
+	/**
+	 * share page btn
+	 */
+	
 
-		window.myScroll = new yScroll('.article_box',pas.scaleNum);
-	},2000)
+	$(".share_btn").on("click",function(){
+		$(".shareCover").show();
+	});
+
+	$(".shareCover").on("touchstart",function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		$(".shareCover").hide();
+	})
+
+	$(".goon").on("click",function(){
+		swiper.slideTo(1);
+
+		backup();
+	})
+
+
+	function backup(){
+		var currentIndex = pointers[pointers.length-1].index;
+		$(".city div[data-index='"+currentIndex+"']").addClass("readed");
+		totalTime = 40;
+		$("#timer").html(totalTime);
+		$("#point,#comment").html("").removeClass("active");
+		$(".submit").removeClass("active");
+		$(".comment_box .active").removeClass("active");
+		$(".circles").css("-webkit-transform","translateX(-175px)");
+		$("#defen").html("30");
+		submited = false;
+		$(".name_cover").removeClass("fadeOut animated");
+		pointer = {};
+	}
+
+
+	function handleShare(){
+		console.log(pointer);
+		var city = pointer.city;
+		var name = pointer.author;
+		
+	}
+
 
 }
